@@ -1,0 +1,24 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/laravel-cicd
+file_exists_behavior: OVERWRITE
+permissions:
+  - object: /var/www/laravel-cicd
+    owner: www-data
+    group: www-data
+    mode: 775
+hooks:
+  ApplicationStop:
+    - location: scripts/stop.sh
+      timeout: 300
+      runas: root
+  BeforeInstall:
+    - location: scripts/install.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 300
+      runas: root
