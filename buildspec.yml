@@ -6,29 +6,59 @@ phases:
       php: 8.3
     commands:
       - echo "Installing system dependencies..."
-      - apt update && apt install -y unzip curl git nginx
+      - apt update && apt install -y unzip curl git nginx mysql-server
       - curl -sS https://getcomposer.org/installer | php
       - mv composer.phar /usr/local/bin/composer
+
   pre_build:
     commands:
       - echo "Setting up Laravel environment..."
-      - composer install --no-dev --prefer-dist --optimize-autoloader
+      - cp .env.example .env
+      - |
+        cat <<EOF > .env
+        APP_NAME=laravel-management
+        APP_ENV=local
+        APP_KEY=base64:qvoQoiqOc/k9htVHhKirpLWdORD4E8OOHlRpYzkpJD8=
+        APP_DEBUG=false
+        APP_URL=http://localhost
+
+        DB_CONNECTION=mysql
+        DB_HOST=
+        DB_PORT=3306
+        DB_DATABASE=apps-laravel
+        DB_USERNAME=root
+        DB_PASSWORD=qwert12345
+
+        SESSION_DRIVER=redis
+        SESSION_LIFETIME=120
+        REDIS_CLIENT=phpredis
+        REDIS_HOST=
+        REDIS_PASSWORD=null
+        REDIS_PORT=6379
+
+        AWS_ACCESS_KEY_ID=
+        AWS_SECRET_ACCESS_KEY=
+        AWS_DEFAULT_REGION=ap-southeast-1
+        AWS_BUCKET=s3lks-cicd
+
+        VITE_APP_NAME="${APP_NAME}"
+        EOF
 
   build:
     commands:
-      - echo "Configuring Permission"
+      - echo "Give a Permission to directories"
       - chmod -R 775 storage bootstrap/cache
-      - chown -R www-data:www-data .
+      - chmod -R 775 storage/logs/
+      - chown -R $USER:www-data .
       - echo "Creating artifact..."
       - zip -r ../laravel-app.zip .
 
   post_build:
     commands:
-      - echo "Build completed."
+      - echo "Build completed. Artifact is ready for deployment."
 
 artifacts:
   files:
     - ../laravel-app.zip
   discard-paths: yes
   name: laravel-app-${CODEBUILD_BUILD_NUMBER}
-
