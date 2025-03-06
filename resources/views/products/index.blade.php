@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Products - SantriKoding.com</title>
+    <title>Data Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -36,8 +36,8 @@
                                 @forelse ($products as $product)
                                     <tr>
                                         <td class="text-center">
-                                            <img src="{{ Storage::disk('s3')->url('public/products/' . $product->image) }}"
-                                                class="rounded" style="width: 150px">
+                                            <img src="{{ Storage::disk('public')->url('products/' . $product->image) }}" class="rounded" style="width: 150px">
+
                                         </td>
                                         <td>{{ $product->title }}</td>
                                         <td>{{ 'Rp ' . number_format($product->price, 2, ',', '.') }}</td>

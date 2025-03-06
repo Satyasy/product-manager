@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel - CI/CD with GitHub Actions (SantriKoding)</title>
+    <title>Laravel - CRUD projects </title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,7 +13,7 @@
 
     <!-- Styles -->
     <style>
-        /* ! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com */
+        /* ! tailwindcss v3.4.1  */
         *,
         ::after,
         ::before {
