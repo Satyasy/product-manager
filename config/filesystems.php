@@ -75,7 +75,7 @@ return [
     */
 
     'links' => [
-    public_path('storage') => storage_path('app/public'),
+    public_path('storage') => storage_path('app/public/products'),
     public_path('storage/database') => storage_path('app/database'), // Tambahkan ini
 ],
 
